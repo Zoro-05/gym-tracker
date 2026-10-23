@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iron Log – Mini Gym Workout Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <h1>Iron Log</h1>
+      <p id="today" class="date"></p>
+    </header>
+
+    <section class="volume" aria-labelledby="vol-label">
+      <p id="vol-label" class="vol-label">Total volume today</p>
+      <p class="vol-number"><span id="vol-total">0</span> <span class="unit">kg</span></p>
+      <div id="vol-bar" class="vol-bar" role="img" aria-label="Volume split by muscle group"></div>
+      <ul id="vol-legend" class="legend"></ul>
+    </section>
+
+    <section class="log-form" aria-labelledby="form-title">
+      <h2 id="form-title">Log a set</h2>
+      <div class="fields">
+        <label class="f-exercise">Exercise
+          <input id="exercise" type="text" placeholder="Bench press" maxlength="40">
+        </label>
+        <label>Muscle group
+          <select id="group">
+            <option>Chest</option>
+            <option>Back</option>
+            <option>Legs</option>
+            <option>Shoulders</option>
+            <option>Arms</option>
+            <option>Core</option>
+          </select>
+        </label>
+        <label>Weight (kg)
+          <input id="weight" type="number" min="0" step="0.5" placeholder="60">
+        </label>
+        <label>Sets
+          <input id="sets" type="number" min="1" step="1" placeholder="3">
+        </label>
+        <label>Reps
+          <input id="reps" type="number" min="1" step="1" placeholder="10">
+        </label>
+      </div>
+      <p id="error" class="error" role="alert"></p>
+      <button id="add-btn" type="button">Log set</button>
+    </section>
+
+    <section aria-labelledby="list-title">
+      <h2 id="list-title">Today’s sets</h2>
+      <ul id="entries" class="entries"></ul>
+      <p id="empty" class="empty">No sets logged today. Add your first one above.</p>
+    </section>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
