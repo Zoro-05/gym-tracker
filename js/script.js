@@ -157,12 +157,47 @@ function render() {
     item.append(dot, document.createTextNode(`${g} ${byGroup[g].toLocaleString()} kg`));
     legend.append(item);
   });
+
+  // export button state
+  document.getElementById("export-btn").disabled = entries.length === 0;
+}
+
+function csvField(value) {
+  const str = String(value);
+  return '"' + str.replace(/"/g, '""') + '"';
+}
+
+function exportCSV() {
+  if (entries.length === 0) return;
+  const header = ["date", "exercise", "muscle group", "weight_kg", "sets", "reps", "volume_kg"];
+  const rows = [header.map(csvField).join(",")];
+  entries.forEach((e) => {
+    rows.push([
+      csvField(e.date),
+      csvField(e.exercise),
+      csvField(e.group),
+      csvField(e.weight),
+      csvField(e.sets),
+      csvField(e.reps),
+      csvField(volumeOf(e))
+    ].join(","));
+  });
+  const blob = new Blob([rows.join("\n")], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "workout-log.csv";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 document.getElementById("today").textContent = new Date().toLocaleDateString(undefined, {
   weekday: "long", day: "numeric", month: "long", year: "numeric",
 });
 document.getElementById("add-btn").addEventListener("click", addEntry);
+document.getElementById("export-btn").addEventListener("click", exportCSV);
 
 render();
 const themeBtn = document.getElementById("theme-btn");
