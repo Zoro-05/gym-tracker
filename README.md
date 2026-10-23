@@ -105,8 +105,8 @@ git log --oneline
 | 3 | `1a4b9ac` | Add personal record badge for heaviest lift per exercise |
 | 4 | `05132de` | Add CSV export for workout log |
 | 5 | `ae2f94b` | Add rest timer with 30/60/90 second presets |
-| DevOps | `JENKINSFILE_HASH` | Add Jenkinsfile for CI pipeline |
-| Docs | `README_HASH` | Add README with documentation and screenshots |
+| DevOps | `1bee72e` | Add Jenkinsfile for CI pipeline |
+
 
 ![Git commit history in terminal](screenshots/04-git-log.png)
 *Git commit history (git log --oneline)*
