@@ -73,11 +73,13 @@ function deleteEntry(id) {
 
 function render() {
   const today = entries.filter((e) => e.date === todayKey());
+    const filter = document.getElementById("filter").value;
+  const shown = filter === "All" ? today : today.filter((e) => e.group === filter);
 
   // list
   const list = document.getElementById("entries");
   list.replaceChildren();
-  [...today].reverse().forEach((e) => {
+    [...shown].reverse().forEach((e) => {
     const li = el("li", "entry");
 
     const bar = el("span", "bar");
@@ -99,7 +101,11 @@ function render() {
     li.append(bar, info, vol, del);
     list.append(li);
   });
-  document.getElementById("empty").hidden = today.length > 0;
+    const empty = document.getElementById("empty");
+  empty.textContent = today.length
+    ? "No sets for this muscle group today."
+    : "No sets logged today. Add your first one above.";
+  empty.hidden = shown.length > 0;
 
   // volume summary
   const byGroup = {};
@@ -152,3 +158,4 @@ themeBtn.addEventListener("click", () => {
 let savedTheme = "light";
 try { savedTheme = localStorage.getItem("iron-log-theme") || "light"; } catch (e) {}
 applyTheme(savedTheme);
+document.getElementById("filter").addEventListener("change", render);
