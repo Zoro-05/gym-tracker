@@ -36,6 +36,21 @@ function volumeOf(e) {
   return e.weight * e.sets * e.reps;
 }
 
+function getMaxWeight(exercise) {
+  if (!exercise) return 0;
+  const target = exercise.trim().toLowerCase();
+  let max = 0;
+  for (const e of entries) {
+    if (e.exercise && e.exercise.trim().toLowerCase() === target) {
+      const w = Number(e.weight);
+      if (!isNaN(w) && w > max) {
+        max = w;
+      }
+    }
+  }
+  return max;
+}
+
 function el(tag, className, text) {
   const node = document.createElement(tag);
   if (className) node.className = className;
@@ -86,8 +101,15 @@ function render() {
     bar.style.background = COLORS[e.group];
 
     const info = el("div");
+    const nameEl = el("p", "name", e.exercise);
+    const maxWeight = getMaxWeight(e.exercise);
+    if (maxWeight > 0 && Number(e.weight) === maxWeight) {
+      const badge = el("span", "pr-badge badge", "PR");
+      nameEl.append(" ", badge);
+    }
+
     info.append(
-      el("p", "name", e.exercise),
+      nameEl,
       el("p", "meta", `${e.group} · ${e.sets} × ${e.reps} at ${e.weight} kg`)
     );
 
