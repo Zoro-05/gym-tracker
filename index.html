@@ -54,6 +54,17 @@
       <button id="add-btn" type="button">Log set</button>
     </section>
 
+    <section class="rest-timer" aria-labelledby="timer-title">
+      <h2 id="timer-title">Rest Timer</h2>
+      <p id="timer-display" class="timer-display" aria-live="polite">00:00</p>
+      <div class="timer-btns">
+        <button type="button" class="timer-btn" data-seconds="30">30 s</button>
+        <button type="button" class="timer-btn" data-seconds="60">60 s</button>
+        <button type="button" class="timer-btn" data-seconds="90">90 s</button>
+        <button type="button" class="timer-btn timer-reset" id="timer-reset">Reset</button>
+      </div>
+    </section>
+
     <section aria-labelledby="list-title">
       <h2 id="list-title">Today’s sets</h2>
       <label class="filter">Show

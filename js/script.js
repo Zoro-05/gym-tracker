@@ -216,3 +216,90 @@ let savedTheme = "light";
 try { savedTheme = localStorage.getItem("iron-log-theme") || "light"; } catch (e) {}
 applyTheme(savedTheme);
 document.getElementById("filter").addEventListener("change", render);
+
+/* ── Rest Timer ── */
+(function () {
+  let timerId = null;
+  let remaining = 0;
+  const display = document.getElementById("timer-display");
+
+  function formatTime(sec) {
+    const m = String(Math.floor(sec / 60)).padStart(2, "0");
+    const s = String(sec % 60).padStart(2, "0");
+    return m + ":" + s;
+  }
+
+  function updateDisplay() {
+    display.classList.remove("timer-warn", "timer-done");
+    if (remaining > 0) {
+      display.textContent = formatTime(remaining);
+      if (remaining <= 10) {
+        display.classList.add("timer-warn");
+      }
+    } else if (remaining === 0 && timerId === null && display.textContent !== "00:00") {
+      display.textContent = "Rest over";
+      display.classList.add("timer-done");
+    } else {
+      display.textContent = formatTime(0);
+    }
+  }
+
+  function playBeep() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "square";
+      osc.frequency.value = 880;
+      gain.gain.value = 0.3;
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.15);
+      osc.onended = function () { ctx.close(); };
+    } catch (e) {
+      /* Web Audio unavailable – silently ignore */
+    }
+  }
+
+  function stopTimer() {
+    if (timerId !== null) {
+      clearInterval(timerId);
+      timerId = null;
+    }
+  }
+
+  function tick() {
+    remaining--;
+    if (remaining <= 0) {
+      remaining = 0;
+      stopTimer();
+      updateDisplay();
+      playBeep();
+      return;
+    }
+    updateDisplay();
+  }
+
+  function startTimer(seconds) {
+    stopTimer();
+    remaining = seconds;
+    updateDisplay();
+    timerId = setInterval(tick, 1000);
+  }
+
+  function resetTimer() {
+    stopTimer();
+    remaining = 0;
+    display.classList.remove("timer-warn", "timer-done");
+    display.textContent = formatTime(0);
+  }
+
+  document.querySelectorAll(".timer-btn[data-seconds]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      startTimer(parseInt(btn.dataset.seconds, 10));
+    });
+  });
+
+  document.getElementById("timer-reset").addEventListener("click", resetTimer);
+})();
