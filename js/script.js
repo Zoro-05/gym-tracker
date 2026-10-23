@@ -137,3 +137,18 @@ document.getElementById("today").textContent = new Date().toLocaleDateString(und
 document.getElementById("add-btn").addEventListener("click", addEntry);
 
 render();
+const themeBtn = document.getElementById("theme-btn");
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  themeBtn.textContent = theme === "dark" ? "Light mode" : "Dark mode";
+  try { localStorage.setItem("iron-log-theme", theme); } catch (e) {}
+}
+
+themeBtn.addEventListener("click", () => {
+  applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+});
+
+let savedTheme = "light";
+try { savedTheme = localStorage.getItem("iron-log-theme") || "light"; } catch (e) {}
+applyTheme(savedTheme);
