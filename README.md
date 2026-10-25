@@ -66,8 +66,8 @@ Data is saved in the browser (localStorage), so nothing is sent anywhere.
 - Export workout log as CSV
 - Rest timer (30 / 60 / 90 seconds)
 
-![Iron Log running locally with all features](screenshots/01-site.png)
-*Iron Log running locally (dark mode, filter, PR badge, CSV button, rest timer)*
+![Iron Log website](screenshots/website_ui.png)
+*Iron Log running locally: dark mode, muscle group filter and PR badge*
 
 ## 5. Git and GitHub Workflow
 
@@ -107,14 +107,13 @@ git log --oneline
 | 5 | `ae2f94b` | Add rest timer with 30/60/90 second presets |
 | DevOps | `1bee72e` | Add Jenkinsfile for CI pipeline |
 
+![Git commit history](screenshots/git_history.png)
+*git log --oneline: initial commit plus 5 changes*
 
-![Git commit history in terminal](screenshots/04-git-log.png)
-*Git commit history (git log --oneline)*
-
-![Commit history on GitHub](screenshots/05-github-commits.png)
+![Commits on GitHub](screenshots/github_commits.png)
 *Commit history on GitHub*
 
-![GitHub repository](screenshots/06-github-repo.png)
+![Repository overview](screenshots/repo_overview.png)
 *GitHub repository with project files and README*
 
 ## 6. Changes Made (5 changes)
@@ -135,15 +134,9 @@ A "PR" badge appears on the set with the heaviest weight for each exercise. (Vis
 **Commit:** `05132de`: Add CSV export for workout log
 An "Export CSV" button below the list downloads all logged sets as a CSV file. The button is disabled when there are no entries.
 
-![Change 4: exported CSV output](screenshots/03-csv-output.png)
-*Change 4: exported CSV output*
-
 ### Change 5: Rest timer
 **Commit:** `ae2f94b`: Add rest timer with 30/60/90 second presets
 A rest timer between the form and the list, with 30s / 60s / 90s presets and a Reset button. It shows time as mm:ss, turns red and pulses under 10 seconds, shows "Rest over" with a short beep at 0, and only one timer runs at a time.
-
-![Change 5: rest timer](screenshots/02-rest-timer.png)
-*Change 5: rest timer under 10 seconds*
 
 ## 7. DevOps Tool Integration: Jenkins
 
@@ -180,13 +173,10 @@ git push
 7. Script Path: `Jenkinsfile`
 8. Save.
 
-![Jenkins pipeline job configuration](screenshots/07-jenkins-config.png)
-*Jenkins pipeline job configuration (repo URL, branch main, Jenkinsfile)*
-
 ### Step 4: Run the build
 Clicked **Build Now**. Build #1 completed successfully in 17 seconds, and the site files (`index.html`, `style.css`, `script.js`) were archived as artifacts.
 
-![Jenkins build successful](screenshots/08-jenkins-build.png)
+![Jenkins pipeline](screenshots/jenkins_pipeline.png)
 *Jenkins build #1 successful, site files archived as artifacts*
 
 ## 8. Conclusion
